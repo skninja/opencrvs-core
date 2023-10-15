@@ -241,13 +241,13 @@ async function loadLocations(): Promise<ILocationDataResponse> {
   const response = await res.json()
   const locations = {
     data: response.entry.reduce(
-      (accumulator: { [key: string]: ILocation }, entry: fhir.BundleEntry) => {
+      (accumulator: { [key: string]: ILocation }, entry: fhir3.BundleEntry) => {
         if (!entry.resource || !entry.resource.id) {
           throw new Error('Resource in entry not valid')
         }
 
         accumulator[entry.resource.id] = generateLocationResource(
-          entry.resource as fhir.Location
+          entry.resource as fhir3.Location
         )
 
         return accumulator
@@ -259,7 +259,7 @@ async function loadLocations(): Promise<ILocationDataResponse> {
   return locations.data
 }
 
-function generateLocationResource(fhirLocation: fhir.Location): ILocation {
+function generateLocationResource(fhirLocation: fhir3.Location): ILocation {
   return {
     id: fhirLocation.id as string,
     name: fhirLocation.name as string,
@@ -307,13 +307,13 @@ async function loadFacilities(): Promise<IFacilitiesDataResponse> {
   const locationBundleHealthFacilities = await resHealthFacilities.json()
 
   const facilities = locationBundleCRVSOffices.entry.reduce(
-    (accumulator: { [key: string]: ILocation }, entry: fhir.BundleEntry) => {
+    (accumulator: { [key: string]: ILocation }, entry: fhir3.BundleEntry) => {
       if (!entry.resource || !entry.resource.id) {
         throw new Error('Resource in entry not valid')
       }
 
       accumulator[entry.resource.id] = generateLocationResource(
-        entry.resource as fhir.Location
+        entry.resource as fhir3.Location
       )
       return accumulator
     },
@@ -321,13 +321,13 @@ async function loadFacilities(): Promise<IFacilitiesDataResponse> {
   )
 
   locationBundleHealthFacilities.entry.reduce(
-    (accumulator: { [key: string]: ILocation }, entry: fhir.BundleEntry) => {
+    (accumulator: { [key: string]: ILocation }, entry: fhir3.BundleEntry) => {
       if (!entry.resource || !entry.resource.id) {
         throw new Error('Resource in entry not valid')
       }
 
       accumulator[entry.resource.id] = generateLocationResource(
-        entry.resource as fhir.Location
+        entry.resource as fhir3.Location
       )
       return accumulator
     },
