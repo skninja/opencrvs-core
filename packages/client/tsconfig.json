@@ -18,14 +18,15 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "types": ["fhir"],
+    "types": ["fhir", "vitest/globals"],
     "noEmit": true,
     "jsx": "react",
     "noFallthroughCasesInSwitch": true
   },
   "include": [
     "src",
-    "typings"
+    "typings",
+    "__mocks__"
   ],
   "exclude": ["src/**/*.test.ts*", "src/tests/util.tsx"],
   "extends": "./tsconfig.paths.json"
